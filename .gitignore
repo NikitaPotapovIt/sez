@@ -171,3 +171,5 @@ cython_debug/
 .pypirc
 /api/migrations/__init__.py
 /common/migrations/__init__.py
+/accounts/migrations/__init__.py
+/notes/migrations/__init__.py
