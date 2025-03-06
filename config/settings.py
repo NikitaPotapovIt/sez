@@ -1,19 +1,17 @@
 from pathlib import Path
+import environ
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+root = environ.Path(__file__) - 2
+env = environ.Env()
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-b1xho())bw&j3fd)wlj^sf1v1!--i=!^-6y1j8pad063*^of)='
+environ.Env.read_env(env.str(root(), '.env'))
+BASE_DIR = root()
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = env.str('SECRET_KEY')
+DEBUG = env.bool('DEBUG', default=False)
+ALLOWED_HOSTS = env.str('ALLOWED_HOSTS', default='').split(' ')
 
-ALLOWED_HOSTS = []
-
-
-# Application definition
-
+# base
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -62,8 +60,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env.str('PG_DATA', 'sezbase'),
+        'USER': env.str('PG_USER', 'postgres'),
+        'PASSWORD': env.str('PG_PASSWORD', 'postgres'),
+        'HOST': env.str('PG_HOST', 'localhost'),
+        'PORT': env.str('PG_PORT', '5432'),
     }
 }
 
