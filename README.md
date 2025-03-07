@@ -210,19 +210,18 @@ DELETE /api/users/{id}/
 Метод : POST
 URL : http://localhost:8000/api/register/ 
 bash
-curl -X POST http://localhost:8000/api/register/ \
+`curl -X POST http://localhost:8000/api/register/ \
 -H "Content-Type: application/json" \
 -d '{
     "username": "testuser",
     "email": "test@example.com",
     "password": "test123"
-}'
- 
+}'`
  
 
 Ответ (успешно) : 
 json
-{
+`{
     "user": {
         "id": 1,
         "username": "testuser",
@@ -230,7 +229,7 @@ json
     },
     "refresh": "eyJ0eXAi...",
     "access": "eyJ0eXAi..."
-}
+}`
   
 2. Авторизация (получение JWT-токенов)  
 
@@ -238,32 +237,32 @@ json
 Метод : POST
 URL : http://localhost:8000/api/token/ 
 bash
-curl -X POST http://localhost:8000/api/token/ \
+`curl -X POST http://localhost:8000/api/token/ \
 -H "Content-Type: application/json" \
 -d '{
     "username": "testuser",
     "password": "test123"
-}'
+}'`
 
 Ответ (успешно) : 
 json
-{
+`{
     "access": "JWT-access-токен",
     "refresh": "JWT-refresh-токен"
 }
- 
+ `
 3. Получение списка заметок  
 
 Описание : Возвращает все заметки текущего пользователя.
 Метод : GET
 URL : http://localhost:8000/api/notes/ 
 bash
-curl -X GET http://localhost:8000/api/notes/ \
--H "Authorization: Bearer <access_token>"
+`curl -X GET http://localhost:8000/api/notes/ \
+-H "Authorization: Bearer <access_token>"`
 
 Ответ (успешно) : 
 json
-[
+`[
     {
         "id": 1,
         "title": "Заметка 1",
@@ -271,7 +270,7 @@ json
         "created_at": "2023-10-05T12:00:00Z",
         "updated_at": "2023-10-05T12:00:00Z"
     }
-]
+]`
  
 4. Создание заметки  
 
@@ -279,23 +278,23 @@ json
 Метод : POST
 URL : http://localhost:8000/api/notes/ 
 bash
-curl -X POST http://localhost:8000/api/notes/ \
+`curl -X POST http://localhost:8000/api/notes/ \
 -H "Authorization: Bearer <access_token>" \
 -H "Content-Type: application/json" \
 -d '{
     "title": "Новая заметка",
     "content": "Это содержимое заметки"
-}'
+}'`
 
 Ответ (успешно) : 
 json
-{
+`{
     "id": 2,
     "title": "Новая заметка",
     "content": "Это содержимое заметки",
     "created_at": "...",
     "updated_at": "..."
-}
+}`
  
 5. Получение заметки по ID  
 
@@ -303,18 +302,18 @@ json
 Метод : GET
 URL : http://localhost:8000/api/notes/<note_id>/ 
 bash
-curl -X GET http://localhost:8000/api/notes/1/ \
--H "Authorization: Bearer <access_token>"
+`curl -X GET http://localhost:8000/api/notes/1/ \
+-H "Authorization: Bearer <access_token>"`
 
 Ответ (успешно) : 
 json
-{
+`{
     "id": 1,
     "title": "Заметка 1",
     "content": "Содержимое заметки",
     "created_at": "...",
     "updated_at": "..."
-}
+}`
  
 6. Обновление заметки (PUT)  
 
@@ -322,23 +321,23 @@ json
 Метод : PUT
 URL : http://localhost:8000/api/notes/<note_id>/ 
 bash
-curl -X PUT http://localhost:8000/api/notes/1/ \
+`curl -X PUT http://localhost:8000/api/notes/1/ \
 -H "Authorization: Bearer <access_token>" \
 -H "Content-Type: application/json" \
 -d '{
     "title": "Обновленный заголовок",
     "content": "Новое содержимое"
-}'
+}'`
  
 Ответ (успешно) : 
 json
-{
+`{
     "id": 1,
     "title": "Обновленный заголовок",
     "content": "Новое содержимое",
     "created_at": "...",
     "updated_at": "..."
-}
+}`
  
 7. Частичное обновление заметки (PATCH)  
 
@@ -346,22 +345,22 @@ json
 Метод : PATCH
 URL : http://localhost:8000/api/notes/<note_id>/ 
 bash
-curl -X PATCH http://localhost:8000/api/notes/1/ \
+`curl -X PATCH http://localhost:8000/api/notes/1/ \
 -H "Authorization: Bearer <access_token>" \
 -H "Content-Type: application/json" \
 -d '{
     "title": "Новый заголовок"
-}'
+}'`
  
 Ответ (успешно) : 
 json
-{
+`{
     "id": 1,
     "title": "Новый заголовок",
     "content": "Содержимое заметки",
     "created_at": "...",
     "updated_at": "..."
-}
+}`
  
 8. Удаление заметки  
 
@@ -369,8 +368,8 @@ json
 Метод : DELETE
 URL : http://localhost:8000/api/notes/<note_id>/ 
 bash
-curl -X DELETE http://localhost:8000/api/notes/1/ \
--H "Authorization: Bearer <access_token>"
+`curl -X DELETE http://localhost:8000/api/notes/1/ \
+-H "Authorization: Bearer <access_token>"`
  
 Ответ (успешно) : 
 HTTP/1.1 204 No Content
@@ -381,17 +380,17 @@ HTTP/1.1 204 No Content
 Метод : POST
 URL : http://localhost:8000/api/token/refresh/ 
 bash
-curl -X POST http://localhost:8000/api/token/refresh/ \
+`curl -X POST http://localhost:8000/api/token/refresh/ \
 -H "Content-Type: application/json" \
 -d '{
     "refresh": "<refresh_token>"
-}'
+}'`
  
 Ответ (успешно) : 
 json
-{
+`{
     "access": "новый_access_токен"
-}
+}`
  
 10. Удаление пользователя (только для администратора)  
 
@@ -399,8 +398,8 @@ json
 Метод : DELETE
 URL : http://localhost:8000/api/users/<user_id>/ 
 bash
-curl -X DELETE http://localhost:8000/api/users/1/ \
--H "Authorization: Bearer <admin_access_token>"
+`curl -X DELETE http://localhost:8000/api/users/1/ \
+-H "Authorization: Bearer <admin_access_token>"`
 
 Ответ (успешно) : 
 HTTP/1.1 204 No Content
